@@ -44,6 +44,12 @@ describe('A bar instance', function() {
 		});
 	});
 
+	describe('has a renderCo function which', function() {
+		it('returns the instance', function *() {
+			bar.renderCo().must.be(bar);
+		});
+	});
+
 	describe('has an append function which', function() {
 		it('returns the instance', function *() {
 			bar.append('A').must.be(bar);

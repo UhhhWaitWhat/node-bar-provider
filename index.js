@@ -15,13 +15,20 @@ Bar.prototype.append = function(fn) {
 };
 
 Bar.prototype.interval = function(ms) {
-	setInterval(co(this.render.bind(this)), ms);
+	this.renderCo();
+	setInterval(this.renderCo.bind(this), ms);
 	return this;
 };
 
 Bar.prototype.render = function *() {
 	var chain = yield this._chain;
 	log(chain.join(''));
+
+	return this;
+};
+
+Bar.prototype.renderCo = function() {
+	co(this.render())();
 
 	return this;
 };

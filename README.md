@@ -59,6 +59,9 @@ Construct your own entry. prefix and postfix can be omitted, but if supplied wil
 #### bar.render()
 Generator function which, when run through `co` outputs a single line on the console.
 
+#### bar.renderCo()
+`bar.render()` wrapped via `co`. This returns immediately.
+
 #### bar.interval(ms)
 Normal function, which calls the render function at each interval.
 
