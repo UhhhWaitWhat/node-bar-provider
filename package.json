@@ -1,7 +1,13 @@
 {
   "name": "bar-provider",
+  "description": "Easy configuration for LemonBoy's bar",
   "version": "1.0.0",
   "main": "index.js",
+  "keywords": [
+    "LemonBoy",
+    "bar",
+    "bar ain't recursive"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/PaulAvery/node-bar-provider.git"
