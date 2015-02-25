@@ -2,7 +2,7 @@ bar-provider
 ============
 [![Build Status](https://img.shields.io/travis/PaulAvery/node-bar-provider.svg?style=flat)](https://travis-ci.org/PaulAvery/node-bar-provider)
 
-This module provides a way to easily define data to be piped into LemonBoy's [bar](https://github.com/LemonBoy/bar).
+This module provides a way to easily define data to be piped into LemonBoy's [bar](https://github.com/LemonBoy/bar). It depends on generators, so run node with the `--harmony` flag (or use io.js).
 
 Quickstart
 ----------
