@@ -1,4 +1,5 @@
-var utils = require('../utils');
+/* eslint-env mocha */
+var utils = require('../lib/utils');
 
 describe('utility function', function() {
 	var valfn = function *() {
@@ -6,28 +7,13 @@ describe('utility function', function() {
 	};
 
 	it('calls generator with utils object', function *() {
-		yield utils.custom(function *() {
+		yield utils.left(function *() {
 			arguments[0].must.be(utils);
 		});
 	});
 
-	describe('custom', function() {
-		var fn = utils.custom;
-
-		it('handles 3 parameters', function *() {
-			(yield fn('pre', 'post', 'val')).must.be('%{pre}val%{post}');
-			(yield fn('pre', 'post', valfn)).must.be('%{pre}val%{post}');
-		});
-
-		it('handles 2 paramaters', function *() {
-			(yield fn('pre', 'val')).must.be('%{pre}val');
-			(yield fn('pre', valfn)).must.be('%{pre}val');
-		});
-
-		it('handles 1 paramater', function *() {
-			(yield fn('val')).must.be('val');
-			(yield fn(valfn)).must.be('val');
-		});
+	it('is chainable', function *() {
+		(yield utils.bg('red').color('green', 'ABC')).must.be('%{Bred}%{Fgreen}ABC%{F}%{B}');
 	});
 
 	describe('left', function() {

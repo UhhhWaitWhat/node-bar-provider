@@ -1,8 +1,12 @@
+/* eslint-env mocha */
+/* eslint-disable new-cap, no-underscore-dangle, no-loop-func */
+
 var rewire = require('rewire');
 var sinon = require('sinon');
-var _ = require('lodash');
-var Bar = rewire('../index');
-var utils = require('../utils');
+var Bar = rewire('../lib/bar');
+var Chain = require('../lib/chain');
+var methods = require('../lib/methods');
+var utils = require('../lib/utils');
 
 describe('The Bar constructor', function() {
 	it('can be used with "new"', function() {
@@ -76,23 +80,23 @@ describe('A bar instance', function() {
 		});
 	});
 
-	describe('Utility function', function () {
-		_.forIn(utils, function(val, key) {
-			describe('Utility function "' + key + '"', function() {
+	describe('Utility functions', function () {
+		for(var method in methods) {
+			describe(method, function() {
 				it('exists', function() {
-					bar.must.have.property(key);
+					bar.must.have.property(method);
 				});
 
-				it('returns the instance', function() {
-					bar[key]().must.be(bar);
+				it('returns an instance of Chain', function() {
+					bar[method]().must.be.an.instanceof(Chain);
 				});
 
 				it('attaches the correct function', function *() {
-					bar[key]('', '');
+					bar[method]('a', 'b');
 					yield bar.render();
-					spy.calledWith(val('', ''));
+					spy.calledWith(yield utils[method]('a', 'b')).must.be.true();
 				});
 			});
-		});
+		}
 	});
 });
