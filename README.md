@@ -8,19 +8,21 @@ Quickstart
 ----------
 *bar.js*
 
-	var Bar = require('bar-provider');
-	var bar = new Bar();
+```js
+var Bar = require('bar-provider');
+var bar = new Bar();
 
-	bar
-		.button('dmenu_run', 'Menu')
-		.center(function *() {
-			return new Date();
-		})
-		.interval(1000);
+bar
+	.button('dmenu_run', 'Menu')
+	.center(function *() {
+		return new Date();
+	})
+	.interval(1000);
+```
 
 Now you can pipe it to bar
 
-	node --harmony bar.js | bar
+	$ node --harmony bar.js | bar
 
 
 API
@@ -30,8 +32,8 @@ Whenever any data should be provided to a method, you may pass a string or a gen
 
 ### Adding data
 
-#### bar.append(data)
-Identical to `bar.custom()` but only takes one argument
+#### bar.raw(data)
+Simply append raw text
 
 #### bar.left(data)
 Prefixes with `%{l}`
@@ -51,8 +53,19 @@ Prefixes with `%{B<color>}` and postfixes with `%{B}`
 #### bar.button(cmd, data)
 Prefixes `%{A:<cmd>:}` and postfixes with `%{A}`
 
-#### bar.custom(prefix, postfix, data)
-Construct your own entry. prefix and postfix can be omitted, but if supplied will be wrapped in `%{}` blocks.
+### Chaining
+You may chain all the provided methods. If you omit the data argument, all the chained styles apply at once.
+So the following will give you blue background AND white text:
+
+```js
+bar.bg('blue').color('white', 'Some Data');
+```
+
+while the following will print text on blue background followed by white text:
+
+```js
+bar.bg('blue', 'Some Data').color('white', 'Some more Data')
+```
 
 ### Rendering
 
@@ -67,14 +80,16 @@ Normal function, which calls the render function at each interval.
 
 Custom Styling
 --------------
-To allow styling of data returned from generator functions (think color for battery percentage), each generator function is passed a utility object, containing all the above methods. Simply return the result of a yielded method if neccessary.
+To allow styling of data returned from generator functions (think color for battery percentage), each generator function is passed a utility object, containing all the above methods. Simply return the result of a yielded method if neccessary. These may be chained as well
 
-	function *getBattery(utils) {
-		//somehow get your battery percentage
-		var percent = yield getPercentage();
-		var color = percent > 50 ? 'green' : 'red';
+```js
+function *getBattery(utils) {
+	//somehow get your battery percentage
+	var percent = yield getPercentage();
+	var color = percent > 50 ? 'green' : 'red';
 
-		return yield utils.color(color, percent);
-	}
+	return yield utils.color(color, percent);
+}
 
-	bar.right(getBattery);
+bar.right(getBattery);
+```
