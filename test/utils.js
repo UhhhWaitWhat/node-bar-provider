@@ -16,6 +16,10 @@ describe('utility function', function() {
 		(yield utils.bg('red').color('green', 'ABC')).must.be('%{Bred}%{Fgreen}ABC%{F}%{B}');
 	});
 
+	it('works with empty strings', function *() {
+		(yield utils.bg('red', '')).must.be('%{Bred}%{B}');
+	});
+
 	describe('left', function() {
 		var fn = utils.left;
 
