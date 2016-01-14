@@ -13,11 +13,11 @@ describe('utility function', function() {
 	});
 
 	it('is chainable', function *() {
-		(yield utils.bg('red').color('green', 'ABC')).must.be('%{Bred}%{Fgreen}ABC%{F}%{B}');
+		(yield utils.bg('red').color('green', 'ABC')).must.be('%{Bred}%{Fgreen}ABC%{F-}%{B-}');
 	});
 
 	it('works with empty strings', function *() {
-		(yield utils.bg('red', '')).must.be('%{Bred}%{B}');
+		(yield utils.bg('red', '')).must.be('%{Bred}%{B-}');
 	});
 
 	describe('left', function() {
@@ -51,8 +51,8 @@ describe('utility function', function() {
 		var fn = utils.color;
 
 		it('assigns the color correctly', function *() {
-			(yield fn('red', 'val')).must.be('%{Fred}val%{F}');
-			(yield fn('red', valfn)).must.be('%{Fred}val%{F}');
+			(yield fn('red', 'val')).must.be('%{Fred}val%{F-}');
+			(yield fn('red', valfn)).must.be('%{Fred}val%{F-}');
 		});
 	});
 
@@ -60,8 +60,8 @@ describe('utility function', function() {
 		var fn = utils.bg;
 
 		it('assigns the background correctly', function *() {
-			(yield fn('red', 'val')).must.be('%{Bred}val%{B}');
-			(yield fn('red', valfn)).must.be('%{Bred}val%{B}');
+			(yield fn('red', 'val')).must.be('%{Bred}val%{B-}');
+			(yield fn('red', valfn)).must.be('%{Bred}val%{B-}');
 		});
 	});
 
