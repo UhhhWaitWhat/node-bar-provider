@@ -7,14 +7,14 @@ lint:
 	@$(BIN)/eslint lib test
 
 release-major: test
-	@$(BIN)/bump --major
+	@npm version major
 
 release-minor: test
-	@$(BIN)/bump --minor
+	@npm version minor
 
 release-patch: test
-	@$(BIN)/bump --patch
+	@npm version patch
 
-publish:
+publish: test
 	git push --tags origin HEAD:master
 	npm publish
